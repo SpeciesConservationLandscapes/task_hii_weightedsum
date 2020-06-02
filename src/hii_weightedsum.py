@@ -17,11 +17,11 @@ class HIIWeightedsum(EETask):
 
     def calc(self):
         
-        hii_infrastructure_driver = ee.ImageCollection("projects/HII/v1/sumatra_poc/driver/infrastructure/hii_infrastructure_driver").sort('system:index',False).first()
-        hii_landuse_driver = ee.ImageCollection("projects/HII/v1/sumatra_poc/driver/landuse/hii_landuse_driver").sort('system:index',False).first()
-        hii_popdens_driver = ee.ImageCollection("projects/HII/v1/sumatra_poc/driver/popdens/hii_popdens_driver").sort('system:index',False).first()
-        hii_power_driver = ee.ImageCollection("projects/HII/v1/sumatra_poc/driver/power/hii_power_driver").sort('system:index',False).first()
-        hii_water_driver = ee.ImageCollection("projects/HII/v1/sumatra_poc/driver/water/hii_water_driver").sort('system:index',False).first()
+        hii_infrastructure_driver = ee.ImageCollection("projects/HII/v1/sumatra_poc/driver/infrastructure/hii_infrastructure_driver").sort('system:index',False).first()#.multiply(10)
+        hii_landuse_driver = ee.ImageCollection("projects/HII/v1/sumatra_poc/driver/landuse/hii_landuse_driver").sort('system:index',False).first() # already weighted
+        hii_popdens_driver = ee.ImageCollection("projects/HII/v1/sumatra_poc/driver/popdens/hii_popdens_driver").sort('system:index',False).first()#.multiply(10)
+        hii_power_driver = ee.ImageCollection("projects/HII/v1/sumatra_poc/driver/power/hii_power_driver").sort('system:index',False).first()#.multiply(10)
+        hii_water_driver = ee.ImageCollection("projects/HII/v1/sumatra_poc/driver/water/hii_water_driver").sort('system:index',False).first()#.multiply(4)
 
         weighted_hii = hii_infrastructure_driver\
                         .add(hii_landuse_driver)\
