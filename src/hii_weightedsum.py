@@ -59,9 +59,6 @@ class HIIWeightedsum(EETask):
             ee.ImageCollection(self.inputs["water"]["ee_path"])
         )
 
-        #print(infrastructure.getInfo())
-
-        # drivers are currently preweighted so we're just adding
         weighted_hii = infrastructure.divide(ee.Image(4))\
                         .add(landuse)\
                         .add(popdens.divide(ee.Image(3)))\
