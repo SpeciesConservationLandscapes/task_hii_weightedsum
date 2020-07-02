@@ -32,7 +32,7 @@ class HIIWeightedsum(EETask):
         "water": {
             "ee_type": EETask.IMAGECOLLECTION,
             "ee_path": f"{ee_driverdir}/water/hii_water_driver",
-            "maxage": 1,
+            "maxage": 30,
         },
     }
 
@@ -41,6 +41,8 @@ class HIIWeightedsum(EETask):
         self.set_aoi_from_ee("{}/sumatra_poc_aoi".format(self.ee_rootdir))
 
     def calc(self):
+
+
         infrastructure, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["infrastructure"]["ee_path"])
         )
@@ -57,8 +59,14 @@ class HIIWeightedsum(EETask):
             ee.ImageCollection(self.inputs["water"]["ee_path"])
         )
 
+        #print(infrastructure.getInfo())
+
         # drivers are currently preweighted so we're just adding
-        weighted_hii = infrastructure.add(landuse).add(popdens).add(power).add(water)
+        weighted_hii = infrastructure.divide(ee.Image(4))\
+                        .add(landuse)\
+                        .add(popdens.divide(ee.Image(3)))\
+                        .add(power.divide(ee.Image(5)))\
+                        .add(water.multiply(ee.Image(2.5)))
 
         self.export_image_ee(weighted_hii, "hii")
 
