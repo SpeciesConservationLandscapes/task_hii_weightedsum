@@ -29,12 +29,23 @@ class HIIWeightedsum(EETask):
             "ee_path": f"{ee_driverdir}/power/hii_power_driver",
             "maxage": 1,
         },
+        "rail": {
+            "ee_type": EETask.IMAGECOLLECTION,
+            "ee_path": f"{ee_driverdir}/rail/hii_rail_driver",
+            "maxage": 1,
+        },
+        "road": {
+            "ee_type": EETask.IMAGECOLLECTION,
+            "ee_path": f"{ee_driverdir}/road/hii_road_driver",
+            "maxage": 1,
+        },
         "water": {
             "ee_type": EETask.IMAGECOLLECTION,
             "ee_path": f"{ee_driverdir}/water/hii_water_driver",
-            "maxage": 30,
-        },
-    }
+            "static": True,
+        }
+
+                    }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -55,14 +66,23 @@ class HIIWeightedsum(EETask):
         power, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["power"]["ee_path"])
         )
+        rail, _ = self.get_most_recent_image(
+            ee.ImageCollection(self.inputs["rail"]["ee_path"])
+        )
+        road, _ = self.get_most_recent_image(
+            ee.ImageCollection(self.inputs["road"]["ee_path"])
+        )
         water, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["water"]["ee_path"])
         )
+
 
         weighted_hii = infrastructure.divide(ee.Image(4))\
                         .add(landuse)\
                         .add(popdens.divide(ee.Image(3)))\
                         .add(power.divide(ee.Image(5)))\
+                        .add(rail.divide(ee.Image(4)))\
+                        .add(road.divide(ee.Image(4)))\
                         .add(water.multiply(ee.Image(2.5)))
 
         self.export_image_ee(weighted_hii, "hii")
