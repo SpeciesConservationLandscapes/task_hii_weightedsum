@@ -9,7 +9,6 @@ class HIIWeightedsum(HIITask):
     ee_driverdir = f"{ee_rootdir}/driver"
     scale = 300
 
-
     inputs = {
         "infrastructure_afrotropic": {
             "ee_type": HIITask.IMAGECOLLECTION,
@@ -51,9 +50,6 @@ class HIIWeightedsum(HIITask):
             "ee_path": f"{ee_driverdir}/infrastructure/aois/HighArctic",
             "maxage": 1,
         },
-
-
-
         "landuse_afrotropic": {
             "ee_type": HIITask.IMAGECOLLECTION,
             "ee_path": f"{ee_driverdir}/landuse/aois/Afrotropic",
@@ -94,9 +90,6 @@ class HIIWeightedsum(HIITask):
             "ee_path": f"{ee_driverdir}/landuse/aois/HighArctic",
             "maxage": 1,
         },
-
-
-
         "popdens_afrotropic": {
             "ee_type": HIITask.IMAGECOLLECTION,
             "ee_path": f"{ee_driverdir}/popdens/aois/Afrotropic",
@@ -137,11 +130,6 @@ class HIIWeightedsum(HIITask):
             "ee_path": f"{ee_driverdir}/popdens/aois/HighArctic",
             "maxage": 3,
         },
-
-
-
-
-
         "power_afrotropic": {
             "ee_type": HIITask.IMAGECOLLECTION,
             "ee_path": f"{ee_driverdir}/power/aois/Afrotropic",
@@ -182,10 +170,6 @@ class HIIWeightedsum(HIITask):
             "ee_path": f"{ee_driverdir}/power/aois/HighArctic",
             "maxage": 1,
         },
-
-
-
-
         "rail_afrotropic": {
             "ee_type": HIITask.IMAGECOLLECTION,
             "ee_path": f"{ee_driverdir}/rail/aois/Afrotropic",
@@ -226,10 +210,6 @@ class HIIWeightedsum(HIITask):
             "ee_path": f"{ee_driverdir}/rail/aois/HighArctic",
             "maxage": 1,
         },
-
-
-
-
         "road_afrotropic": {
             "ee_type": HIITask.IMAGECOLLECTION,
             "ee_path": f"{ee_driverdir}/road/aois/Afrotropic",
@@ -265,52 +245,47 @@ class HIIWeightedsum(HIITask):
             "ee_path": f"{ee_driverdir}/road/aois/Palearctic",
             "maxage": 1,
         },
-
         "road_higharctic": {
             "ee_type": HIITask.IMAGECOLLECTION,
             "ee_path": f"{ee_driverdir}/road/aois/HighArctic",
             "maxage": 1,
         },
-
-
-
-    "water_afrotropic": {
-        "ee_type": HIITask.IMAGECOLLECTION,
-        "ee_path": f"{ee_driverdir}/water/aois/Afrotropic",
-        "maxage": 3,
-    },
-    "water_australasia": {
-        "ee_type": HIITask.IMAGECOLLECTION,
-        "ee_path": f"{ee_driverdir}/water/aois/Australasia",
-        "maxage": 3,
-    },
-    "water_indomalayan": {
-        "ee_type": HIITask.IMAGECOLLECTION,
-        "ee_path": f"{ee_driverdir}/water/aois/Indomalayan",
-        "maxage": 3,
-    },
-    "water_nearctic": {
-        "ee_type": HIITask.IMAGECOLLECTION,
-        "ee_path": f"{ee_driverdir}/water/aois/Nearctic",
-        "maxage": 3,
-    },
-    "water_neotropic": {
-        "ee_type": HIITask.IMAGECOLLECTION,
-        "ee_path": f"{ee_driverdir}/water/aois/Neotropic",
-        "maxage": 3,
-    },
-    "water_oceania": {
-        "ee_type": HIITask.IMAGECOLLECTION,
-        "ee_path": f"{ee_driverdir}/water/aois/Oceania",
-        "maxage": 3,
-    },
-    "water_palearctic": {
-        "ee_type": HIITask.IMAGECOLLECTION,
-        "ee_path": f"{ee_driverdir}/water/aois/Palearctic",
-        "maxage": 3,
+        "water_afrotropic": {
+            "ee_type": HIITask.IMAGECOLLECTION,
+            "ee_path": f"{ee_driverdir}/water/aois/Afrotropic",
+            "maxage": 3,
+        },
+        "water_australasia": {
+            "ee_type": HIITask.IMAGECOLLECTION,
+            "ee_path": f"{ee_driverdir}/water/aois/Australasia",
+            "maxage": 3,
+        },
+        "water_indomalayan": {
+            "ee_type": HIITask.IMAGECOLLECTION,
+            "ee_path": f"{ee_driverdir}/water/aois/Indomalayan",
+            "maxage": 3,
+        },
+        "water_nearctic": {
+            "ee_type": HIITask.IMAGECOLLECTION,
+            "ee_path": f"{ee_driverdir}/water/aois/Nearctic",
+            "maxage": 3,
+        },
+        "water_neotropic": {
+            "ee_type": HIITask.IMAGECOLLECTION,
+            "ee_path": f"{ee_driverdir}/water/aois/Neotropic",
+            "maxage": 3,
+        },
+        "water_oceania": {
+            "ee_type": HIITask.IMAGECOLLECTION,
+            "ee_path": f"{ee_driverdir}/water/aois/Oceania",
+            "maxage": 3,
+        },
+        "water_palearctic": {
+            "ee_type": HIITask.IMAGECOLLECTION,
+            "ee_path": f"{ee_driverdir}/water/aois/Palearctic",
+            "maxage": 3,
+        },
     }
-    
-                    }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -318,7 +293,7 @@ class HIIWeightedsum(HIITask):
 
     def calc(self):
 
-        '''
+        """
         infrastructure, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["infrastructure"]["ee_path"])
         )
@@ -340,7 +315,7 @@ class HIIWeightedsum(HIITask):
         water, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["water"]["ee_path"])
         )
-        '''
+        """
         infrastructure_afrotropic, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["infrastructure_afrotropic"]["ee_path"])
         )
@@ -366,16 +341,18 @@ class HIIWeightedsum(HIITask):
             ee.ImageCollection(self.inputs["infrastructure_higharctic"]["ee_path"])
         )
 
-        infrastructure = ee.ImageCollection([infrastructure_afrotropic,\
-                                infrastructure_australasia,\
-                                infrastructure_indomalayan,\
-                                infrastructure_nearctic,\
-                                infrastructure_neotropic,\
-                                infrastructure_oceania,\
-                                infrastructure_palearctic,\
-                                infrastructure_higharctic]).max()
-
-
+        infrastructure = ee.ImageCollection(
+            [
+                infrastructure_afrotropic,
+                infrastructure_australasia,
+                infrastructure_indomalayan,
+                infrastructure_nearctic,
+                infrastructure_neotropic,
+                infrastructure_oceania,
+                infrastructure_palearctic,
+                infrastructure_higharctic,
+            ]
+        ).max()
 
         landuse_afrotropic, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["landuse_afrotropic"]["ee_path"])
@@ -401,16 +378,18 @@ class HIIWeightedsum(HIITask):
         landuse_higharctic, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["landuse_higharctic"]["ee_path"])
         )
-        landuse = ee.ImageCollection([landuse_afrotropic,\
-                                landuse_australasia,\
-                                landuse_indomalayan,\
-                                landuse_nearctic,\
-                                landuse_neotropic,\
-                                landuse_oceania,\
-                                landuse_palearctic,\
-                                landuse_higharctic]).max()
-
-
+        landuse = ee.ImageCollection(
+            [
+                landuse_afrotropic,
+                landuse_australasia,
+                landuse_indomalayan,
+                landuse_nearctic,
+                landuse_neotropic,
+                landuse_oceania,
+                landuse_palearctic,
+                landuse_higharctic,
+            ]
+        ).max()
 
         popdens_afrotropic, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["popdens_afrotropic"]["ee_path"])
@@ -437,15 +416,18 @@ class HIIWeightedsum(HIITask):
             ee.ImageCollection(self.inputs["popdens_higharctic"]["ee_path"])
         )
 
-        popdens = ee.ImageCollection([popdens_afrotropic,\
-                                popdens_australasia,\
-                                popdens_indomalayan,\
-                                popdens_nearctic,\
-                                popdens_neotropic,\
-                                popdens_oceania,\
-                                popdens_palearctic,\
-                                popdens_higharctic]).max()
-
+        popdens = ee.ImageCollection(
+            [
+                popdens_afrotropic,
+                popdens_australasia,
+                popdens_indomalayan,
+                popdens_nearctic,
+                popdens_neotropic,
+                popdens_oceania,
+                popdens_palearctic,
+                popdens_higharctic,
+            ]
+        ).max()
 
         power_afrotropic, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["power_afrotropic"]["ee_path"])
@@ -472,17 +454,18 @@ class HIIWeightedsum(HIITask):
             ee.ImageCollection(self.inputs["power_higharctic"]["ee_path"])
         )
 
-        power = ee.ImageCollection([power_afrotropic,\
-                                power_australasia,\
-                                power_indomalayan,\
-                                power_nearctic,\
-                                power_neotropic,\
-                                power_oceania,\
-                                power_palearctic,\
-                                power_higharctic]).max()
-
-
-
+        power = ee.ImageCollection(
+            [
+                power_afrotropic,
+                power_australasia,
+                power_indomalayan,
+                power_nearctic,
+                power_neotropic,
+                power_oceania,
+                power_palearctic,
+                power_higharctic,
+            ]
+        ).max()
 
         rail_afrotropic, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["rail_afrotropic"]["ee_path"])
@@ -509,17 +492,18 @@ class HIIWeightedsum(HIITask):
             ee.ImageCollection(self.inputs["rail_higharctic"]["ee_path"])
         )
 
-        rail = ee.ImageCollection([rail_afrotropic,\
-                                rail_australasia,\
-                                rail_indomalayan,\
-                                rail_nearctic,\
-                                rail_neotropic,\
-                                rail_oceania,\
-                                rail_palearctic,\
-                                rail_higharctic]).max()
-
-
-
+        rail = ee.ImageCollection(
+            [
+                rail_afrotropic,
+                rail_australasia,
+                rail_indomalayan,
+                rail_nearctic,
+                rail_neotropic,
+                rail_oceania,
+                rail_palearctic,
+                rail_higharctic,
+            ]
+        ).max()
 
         road_afrotropic, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["road_afrotropic"]["ee_path"])
@@ -546,18 +530,19 @@ class HIIWeightedsum(HIITask):
             ee.ImageCollection(self.inputs["road_higharctic"]["ee_path"])
         )
 
-        road = ee.ImageCollection([road_afrotropic,\
-                                road_australasia,\
-                                road_indomalayan,\
-                                road_nearctic,\
-                                road_neotropic,\
-                                road_oceania,\
-                                road_palearctic,\
-                                road_higharctic]).max()
+        road = ee.ImageCollection(
+            [
+                road_afrotropic,
+                road_australasia,
+                road_indomalayan,
+                road_nearctic,
+                road_neotropic,
+                road_oceania,
+                road_palearctic,
+                road_higharctic,
+            ]
+        ).max()
 
-
-
-        
         water_afrotropic, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["water_afrotropic"]["ee_path"])
         )
@@ -583,28 +568,27 @@ class HIIWeightedsum(HIITask):
             ee.ImageCollection(self.inputs["water_palearctic"]["ee_path"])
         )
 
-        water = ee.ImageCollection([water_afrotropic,\
-                                water_australasia,\
-                                water_indomalayan,\
-                                water_nearctic,\
-                                water_neotropic,\
-                                water_oceania,\
-                                water_palearctic,\
-                                water_higharctic\
-                                ]).max()
+        water = ee.ImageCollection(
+            [
+                water_afrotropic,
+                water_australasia,
+                water_indomalayan,
+                water_nearctic,
+                water_neotropic,
+                water_oceania,
+                water_palearctic,
+                water_higharctic,
+            ]
+        ).max()
 
-
-
-
-        weighted_hii = infrastructure\
-                        .add(landuse)\
-                        .add(popdens)\
-                        .add(power)\
-                        .add(rail)\
-                        .add(road)\
-                        .add(water)
-
-
+        weighted_hii = (
+            infrastructure.add(landuse)
+            .add(popdens)
+            .add(power)
+            .add(rail)
+            .add(road)
+            .add(water)
+        )
 
         self.export_image_ee(weighted_hii, "hii")
         self.export_image_ee(infrastructure, "infrastructure/hii_infrastructure_driver")
@@ -622,7 +606,12 @@ class HIIWeightedsum(HIITask):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--taskdate", default=datetime.now(timezone.utc).date())
+    parser.add_argument("-d", "--taskdate")
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="overwrite existing outputs instead of incrementing",
+    )
     options = parser.parse_args()
     weightedsum_task = HIIWeightedsum(**vars(options))
     weightedsum_task.run()
