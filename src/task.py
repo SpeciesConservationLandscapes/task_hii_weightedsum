@@ -43,10 +43,16 @@ class HIIWeightedsum(HIITask):
             "ee_path": f"{ee_driverdir}/water",
             "maxage": 1,
         },
+        "watermask": {
+            "ee_type": HIITask.IMAGE,
+            "ee_path": "projects/HII/v1/source/phys/watermask_jrc70_cciocean",
+            "static": True,
+        },
     }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.watermask = ee.Image(self.inputs["watermask"]["ee_path"])
 
     def calc(self):
         rail, _ = self.get_most_recent_image(
@@ -72,12 +78,10 @@ class HIIWeightedsum(HIITask):
         )
 
         weighted_hii = (
-            infrastructure.add(landuse)
-            .add(popdens)
-            .add(power)
-            .add(rail)
-            .add(road)
-            .add(water)
+            infrastructure.addBands([landuse, popdens, power, rail, road, water])
+            .reduce(ee.Reducer.sum())
+            .updateMask(self.watermask)
+            .rename("hii")
         )
 
         self.export_image_ee(weighted_hii, "hii")
