@@ -5,7 +5,6 @@ from task_base import HIITask
 
 class HIIWeightedsum(HIITask):
     ee_driverdir = "projects/HII/v1/driver"
-    scale = 300
 
     inputs = {
         "rail": {
