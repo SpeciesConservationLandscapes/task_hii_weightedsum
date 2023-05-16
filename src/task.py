@@ -46,17 +46,30 @@ class HIIWeightedsum(HIITask):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.export_path = None
+        self.noosm = kwargs.get("noosm", False)
 
     def calc(self):
-        rail, _ = self.get_most_recent_image(
-            ee.ImageCollection(self.inputs["rail"]["ee_path"])
-        )
-        road, _ = self.get_most_recent_image(
-            ee.ImageCollection(self.inputs["road"]["ee_path"])
-        )
-        infrastructure, _ = self.get_most_recent_image(
-            ee.ImageCollection(self.inputs["infrastructure"]["ee_path"])
-        )
+        if self.noosm is False:
+            rail, _ = self.get_most_recent_image(
+                ee.ImageCollection(self.inputs["rail"]["ee_path"])
+            )
+            road, _ = self.get_most_recent_image(
+                ee.ImageCollection(self.inputs["road"]["ee_path"])
+            )
+            infrastructure, _ = self.get_most_recent_image(
+                ee.ImageCollection(self.inputs["infrastructure"]["ee_path"])
+            )
+        else:
+            rail, _ = self.get_most_recent_image(
+                ee.ImageCollection(self.inputs["rail"]["ee_path"] + "_no_osm")
+            )
+            road, _ = self.get_most_recent_image(
+                ee.ImageCollection(self.inputs["road"]["ee_path"] + "_no_osm")
+            )
+            infrastructure, _ = self.get_most_recent_image(
+                ee.ImageCollection(self.inputs["infrastructure"]["ee_path"] + "_no_osm")
+            )
         landuse, _ = self.get_most_recent_image(
             ee.ImageCollection(self.inputs["landuse"]["ee_path"])
         )
@@ -77,7 +90,12 @@ class HIIWeightedsum(HIITask):
             .rename("hii")
         )
 
-        self.export_image_ee(weighted_hii, "hii")
+        if self.noosm is False:
+            self.export_path = f"hii"
+        else:
+            self.export_path = f"hii_no_osm"
+
+        self.export_image_ee(weighted_hii, self.export_path)
 
     def check_inputs(self):
         super().check_inputs()
@@ -90,6 +108,12 @@ if __name__ == "__main__":
         "--overwrite",
         action="store_true",
         help="overwrite existing outputs instead of incrementing",
+    )
+    parser.add_argument(
+        "-n",
+        "--noosm",
+        action="store_true",
+        help="do not include osm in driver calculation",
     )
     options = parser.parse_args()
     weightedsum_task = HIIWeightedsum(**vars(options))
